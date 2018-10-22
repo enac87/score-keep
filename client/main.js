@@ -9,9 +9,14 @@ import {Players} from './../imports/api/players';
 //   console.log('Players list', Players.find().fetch());
 // });
 
-const renderPlayers = function (playersList) {
-  return playersList.map(function (player) {
-    return <p key={player._id}>{player.name} has {player.score} point(s).</p>;
+const renderPlayers = (playersList) => {
+  return playersList.map((player) => {
+    return (
+      <p key={player._id}>
+        {player.name} has {player.score} point(s).
+        <button>X</button>
+      </p>
+    );
   });
 };
 
@@ -29,9 +34,9 @@ const handleSubmit = (e) => {
   }
 }
 
-Meteor.startup(function () {
+Meteor.startup(() => {
 
-  Tracker.autorun(function () {
+  Tracker.autorun(() => {
 
     const players = Players.find().fetch();
     let title = 'Score Keep';
