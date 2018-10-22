@@ -9,15 +9,28 @@ import {Players} from './../imports/api/players';
 //   console.log('Players list', Players.find().fetch());
 // });
 
-const renderPlayers = (playersList) => {
-  return playersList.map((player) => {
+const renderPlayers = function (playersList) {
+  return playersList.map(function (player) {
     return (
       <p key={player._id}>
         {player.name} has {player.score} point(s).
-        <button>X</button>
+        <button onClick={() => updateScore(player._id, 1)}>+1</button>
+        <button onClick={() => updateScore(player._id, -1)}>-1</button>
+        <button onClick={() => removeEntry(player._id)}>X</button>
       </p>
     );
   });
+};
+
+const updateScore = (id, newScore) => {
+  Players.update(
+    { _id: id },
+    {$inc: {score: newScore}}
+  );
+};
+
+const removeEntry = (id) => {
+  Players.remove({ _id: id });
 };
 
 const handleSubmit = (e) => {
